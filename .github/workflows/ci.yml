@@ -9,11 +9,9 @@ on:
     - '**'
 
 env:
-    BRANCH_NAME: ${GITHUB_REF#refs/heads/}
     MAJOR_VERSION: 1
     MINOR_VERSION: 0
     PATCH_VERSION: 0
-    BUILD_VERSION: ${{ env:MAJOR_VERSION }}.${{ env:MINOR_VERSION }}.${{ env:PATCH_VERSION }}.${GITHUB_RUN_NUMBER}
 
 jobs:
   build:
@@ -28,8 +26,8 @@ jobs:
     - name: Define build number
       id: define_build_number
       run: |
-        $buildNumber = ${{ env.BUILD_VERSION }};
-        $branchName = ${{ env.BRANCH_NAME }} -replace ".*/";
+        $buildNumber = ${{ env:MAJOR_VERSION }}.${{ env:MINOR_VERSION }}.${{ env:PATCH_VERSION }}.${{ env:GITHUB_RUN_NUMBER }};
+        $branchName = ${{ env.GITHUB_REF }} -replace ".*/";
         $buildId = "$buildNumber-$branchName";
         echo $buildNumber;
         echo $branchName;
