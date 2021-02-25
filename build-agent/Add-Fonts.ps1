@@ -85,6 +85,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using System.Runtime.InteropServices;
+
 namespace FontResource
 {
     public class AddRemoveFonts
@@ -95,15 +96,20 @@ namespace FontResource
         private static IntPtr HWND_TOPMOST = new IntPtr(-1);
         private static IntPtr HWND_NOTOPMOST = new IntPtr(-2);
         private static IntPtr HWND_MESSAGE = new IntPtr(-3);
+
         [DllImport("gdi32.dll")]
         static extern int AddFontResource(string lpFilename);
+
         [DllImport("gdi32.dll")]
         static extern int RemoveFontResource(string lpFileName);
+
         [DllImport("user32.dll",CharSet=CharSet.Auto)]
         private static extern int SendMessage(IntPtr hWnd, WM wMsg, IntPtr wParam, IntPtr lParam);
+
         [return: MarshalAs(UnmanagedType.Bool)]
         [DllImport("user32.dll", SetLastError = true)]
         private static extern bool PostMessage(IntPtr hWnd, WM Msg, IntPtr wParam, IntPtr lParam);
+
         public static int AddFont(string fontFilePath) {
             FileInfo fontFile = new FileInfo(fontFilePath);
             if (!fontFile.Exists) 
@@ -113,10 +119,13 @@ namespace FontResource
             try 
             {
                 int retVal = AddFontResource(fontFilePath);
+
                 //This version of SendMessage is a blocking call until all windows respond.
                 //long result = SendMessage(HWND_BROADCAST, WM.FONTCHANGE, IntPtr.Zero, IntPtr.Zero);
+
                 //Alternatively PostMessage instead of SendMessage to prevent application hang
                 bool posted = PostMessage(HWND_BROADCAST, WM.FONTCHANGE, IntPtr.Zero, IntPtr.Zero);
+
                 return retVal;
             }
             catch
@@ -124,6 +133,7 @@ namespace FontResource
                 return 0;
             }
         }
+
         public static int RemoveFont(string fontFileName) {
             //FileInfo fontFile = new FileInfo(fontFileName);
             //if (!fontFile.Exists) 
@@ -133,10 +143,13 @@ namespace FontResource
             try 
             {
                 int retVal = RemoveFontResource(fontFileName);
+
                 //This version of SendMessage is a blocking call until all windows respond.
                 //long result = SendMessage(HWND_BROADCAST, WM.FONTCHANGE, IntPtr.Zero, IntPtr.Zero);
+
                 //Alternatively PostMessage instead of SendMessage to prevent application hang
                 bool posted = PostMessage(HWND_BROADCAST, WM.FONTCHANGE, IntPtr.Zero, IntPtr.Zero);
+
                 return retVal;
             }
             catch
@@ -144,6 +157,7 @@ namespace FontResource
                 return 0;
             }
         }
+
         public enum WM : uint
         {
             NULL = 0x0000,
@@ -378,6 +392,7 @@ namespace FontResource
             CPL_LAUNCHED = USER+0x1001,
             SYSTIMER = 0x118
         }
+
     }
 }
 '@
@@ -480,15 +495,20 @@ function Show-Usage()
 $usage = @'
 Add-Font.ps1
 This script is used to install Windows fonts.
+
 Usage:
 Add-Font.ps1 -help | -path "<Font file or folder path>"
+
 Parameters:
+
     -help
      Displays usage information.
+
     -path
      May be either the path to a font file to install or the path to a folder 
      containing font files to install.  Valid file types are .fon, .fnt,
      .ttf,.ttc, .otf, .mmm, .pbf, and .pfm
+
 Examples:
     Add-Font.ps1
     Add-Font.ps1 -path "C:\Custom Fonts\MyFont.ttf"
@@ -591,3 +611,4 @@ function Process-Arguments()
 
 $fontsFolderPath = Get-SpecialFolder($CSIDL_FONTS)
 Process-Arguments
+
