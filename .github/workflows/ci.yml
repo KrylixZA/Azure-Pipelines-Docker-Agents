@@ -30,16 +30,16 @@ jobs:
     - name: Define build number
       id: define_build_number
       run: |
-        buildNumber=$(echo ${{ env.BUILD_VERSION }})
-        branchName=$(echo ${{ env.BRANCH_NAME }} | sed 's:.*/::')
-        buildId=$buildNumber-$branchName
-        if [[ "$branchName" == "master" ]]; then
-          buildId=$buildNumber
-        fi
-        echo $buildNumber
-        echo $branchName
-        echo $buildId
-        echo "##[set-output name=BUILD_NUMBER;]$(echo $buildId)"
+        $branchName = ${{ env.BUILD_VERSION }};
+        $branchName = ${{ env.BRANCH_NAME }} -replace ".*/";
+        $buildId = "$buildNumber-$branchName";
+        if ($branchName -eq "master") {
+            $buildId = $buildNumber;
+        }
+        Write-Host $buildNumber;
+        Write-Host $branchName;
+        Write-Host $buildId;
+        Write-Host "##[set-output name=BUILD_NUMBER;]$(Write-Host $buildId)";
 
     - name: Docker Build & Push to Docker Hub
       uses: opspresso/action-docker@master
