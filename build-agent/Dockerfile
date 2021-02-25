@@ -32,6 +32,10 @@ RUN powershell -Command `
     Move-Item C:\TEMP\git "${Env:ProgramFiles}\git"; `
     Remove-Item mingit.zip -Force; `
     setx /M PATH $($Env:PATH + ';' + ${Env:ProgramFiles} + '\git\cmd');
+
+# Overwrite the default gitconfig file as it has an infinite loop in it - see https://gitlab.com/gitlab-org/gitlab/-/issues/239013#note_400463268
+COPY gitconfig .
+RUN powershell Move-Item gitconfig ${Env:ProgramFiles}\git\etc -Force;
  
 # Install NodeJS
 RUN powershell -Command `
@@ -70,15 +74,11 @@ RUN powershell -Command `
 # Allow Docker-in-Docker
 RUN powershell setx /M PATH $($Env:PATH + ';' + ${Env:ProgramFiles} + '\Docker');
  
-# Overwrite the default gitconfig file as it has an infinite loop in it - see https://gitlab.com/gitlab-org/gitlab/-/issues/239013#note_400463268
-COPY gitconfig .
-RUN powershell Move-Item gitconfig ${Env:ProgramFiles}\git\etc -Force;
- 
 # Download & install Chrome
 ADD FontsToAdd.tar /Fonts/
 COPY Add-Fonts.ps1   /Fonts/
 WORKDIR /Fonts/
-RUN powershell .\Add-Font.ps1 Fonts
+RUN powershell .\Add-Fonts.ps1 Fonts
 WORKDIR /
 RUN powershell -Command `
     Add-WindowsFeature Web-WebSockets; `
