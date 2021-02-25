@@ -26,13 +26,11 @@ jobs:
     - name: Define build number
       id: define_build_number
       run: |
-        # echo $env.GITHUB_RUN_NUMBER
-        # echo $env:GITHUB_RUN_NUMBER
         echo ${env.GITHUB_RUN_NUMBER}
-        echo ${env:GITHUB_RUN_NUMBER}
+        # echo ${env:GITHUB_RUN_NUMBER}
         echo ${{ env.GITHUB_RUN_NUMBER }}
         echo ${{ env:GITHUB_RUN_NUMBER }}
-        echo $GITHUB_REF
+        echo $GITHUB_RUN_NUMBER
         # echo $env.GITHUB_REF
         # $buildNumber = "${{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.PATCH_VERSION }}.${env.GITHUB_RUN_NUMBER}"";
         # $branchName = ${env.GITHUB_REF} -replace ".*/";
