@@ -27,7 +27,7 @@ jobs:
       id: define_build_number
       run: |
         echo $env.GITHUB_RUN_NUMBER
-        echo $env:GITHUB_RUN_NUMBER
+        # echo $env:GITHUB_RUN_NUMBER
         echo ${env.GITHUB_RUN_NUMBER}
         echo ${env:GITHUB_RUN_NUMBER}
         echo ${{ env.GITHUB_RUN_NUMBER }}
