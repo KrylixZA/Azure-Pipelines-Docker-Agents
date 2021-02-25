@@ -76,7 +76,7 @@ RUN powershell Move-Item gitconfig ${Env:ProgramFiles}\git\etc -Force;
  
 # Download & install Chrome
 ADD FontsToAdd.tar /Fonts/
-COPY Add-Font.ps1   /Fonts/
+COPY Add-Fonts.ps1   /Fonts/
 WORKDIR /Fonts/
 RUN powershell .\Add-Font.ps1 Fonts
 WORKDIR /
