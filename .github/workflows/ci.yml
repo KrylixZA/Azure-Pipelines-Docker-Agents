@@ -32,7 +32,7 @@ jobs:
         echo $buildNumber;
         echo $branchName;
         echo $buildId;
-        if ($branchName -eq "master" or $branchName -eq "main") {
+        if ($branchName -eq "master" -or $branchName -eq "main") {
             $buildId = $buildNumber;
         }
         echo $buildId;
