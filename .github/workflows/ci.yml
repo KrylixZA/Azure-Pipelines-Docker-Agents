@@ -28,8 +28,10 @@ jobs:
     - name: Define build number
       id: define_build_number
       run: |
-        $branchName = ${{ env.BUILD_VERSION }};
+        $buildNumber = ${{ env.BUILD_VERSION }};
         $branchName = ${{ env.BRANCH_NAME }} -replace ".*/";
+        echo $buildNumber;
+        echo $branchName;
         $buildId = "$buildNumber-$branchName";
         if ($branchName -eq "master") {
             $buildId = $buildNumber;
@@ -38,8 +40,9 @@ jobs:
         echo "##[set-output name=BUILD_NUMBER;]$(echo $buildId)";
 
     - name: Build & push Docker image
-      working-directory: ./build-agent
+      working-directory: ./build-agent build-agent
       run: |
-        docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
-        docker build -t krylixza/azure-pipelines-docker-agents/build:${{ steps.define_build_number.outputs.BUILD_NUMBER }} -m 2GB .
-        docker push krylixza/azure-pipelines-docker-agents/build:${{ steps.define_build_number.outputs.BUILD_NUMBER }}
+        docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }};
+        docker build -t krylixza/azure-pipelines-docker-agents/build:${{ steps.define_build_number.outputs.BUILD_NUMBER }} -m 2GB .;
+        docker push krylixza/azure-pipelines-docker-agents/build:${{ steps.define_build_number.outputs.BUILD_NUMBER }};
+        docker logout;
