@@ -28,13 +28,12 @@ jobs:
     - name: Define build number
       id: define_build_number
       run: |
-        $buildNumber = $env.BUILD_VERSION;
-        $branchName = $env.BRANCH_NAME -replace ".*/";
-        Write-Host $buildNumber;
+        $buildNumber = ${{ env.BUILD_VERSION }};
+        $branchName = ${{ env.BRANCH_NAME }} -replace ".*/";
+        $buildId = "$buildNumber-$branchName";
         echo $buildNumber;
-        Write-Host $branchName;
         echo $branchName;
-        # $buildId = "$buildNumber-$branchName";
+        echo $buildId;
         # if ($branchName -eq "master") {
         #     $buildId = $buildNumber;
         # }
