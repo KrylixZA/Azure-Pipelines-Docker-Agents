@@ -31,7 +31,9 @@ jobs:
         $buildNumber = $env.BUILD_VERSION;
         $branchName = $env.BRANCH_NAME -replace ".*/";
         Write-Host $buildNumber;
+        echo $buildNumber;
         Write-Host $branchName;
+        echo $branchName;
         # $buildId = "$buildNumber-$branchName";
         # if ($branchName -eq "master") {
         #     $buildId = $buildNumber;
