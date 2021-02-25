@@ -38,7 +38,7 @@ jobs:
         echo "##[set-output name=BUILD_NUMBER;]$(echo $buildId)";
 
     - name: Build & push Docker image
-      working-directory: ${GITHUB_WORKSPACE}/build-agent
+      working-directory: ./build-agent
       run: |
         docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
         docker build -t krylixza/azure-pipelines-docker-agents/build:${{ steps.define_build_number.outputs.BUILD_NUMBER }} -m 2GB .
