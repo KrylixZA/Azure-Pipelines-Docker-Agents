@@ -26,7 +26,7 @@ jobs:
     - name: Define build number
       id: define_build_number
       run: |
-        $buildNumber = ${{ env:MAJOR_VERSION }}.${{ env:MINOR_VERSION }}.${{ env:PATCH_VERSION }}.${{ env:GITHUB_RUN_NUMBER }};
+        $buildNumber = ${{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.PATCH_VERSION }}.${{ env.GITHUB_RUN_NUMBER }};
         $branchName = ${{ env.GITHUB_REF }} -replace ".*/";
         $buildId = "$buildNumber-$branchName";
         echo $buildNumber;
