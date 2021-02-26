@@ -42,7 +42,8 @@ jobs:
     - name: Build & push Docker image
       working-directory: ./build-agent/windows
       run: |
-        if (${{ env.BUILD_WINDOWS_AGENT }} -or ${{ env.BUILD_WINDOWS_AGENT }} -eq "True") {
+        $shouldBuild = "${{ env.BUILD_WINDOWS_AGENT }}";
+        if ($shouldBuild -eq $true) {
           docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }};
           docker build -t krylixza/azure-pipelines-docker-agents/build/windows:${{ steps.define_build_number.outputs.BUILD_NUMBER }} -m 2GB .;
           docker push krylixza/azure-pipelines-docker-agents/build/windows:${{ steps.define_build_number.outputs.BUILD_NUMBER }};
