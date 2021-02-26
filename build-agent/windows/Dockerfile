@@ -76,9 +76,9 @@ RUN powershell setx /M PATH $($Env:PATH + ';' + ${Env:ProgramFiles} + '\Docker')
  
 # Download & install Chrome
 ADD FontsToAdd.tar /Fonts/
-COPY Add-Fonts.ps1   /Fonts/
+COPY Add-Font.ps1   /Fonts/
 WORKDIR /Fonts/
-RUN powershell .\Add-Fonts.ps1 Fonts
+RUN powershell .\Add-Font.ps1 Fonts
 WORKDIR /
 RUN powershell -Command `
     Add-WindowsFeature Web-WebSockets; `
