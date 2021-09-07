@@ -12,7 +12,7 @@ env:
     MAJOR_VERSION: 1
     MINOR_VERSION: 0
     PATCH_VERSION: 0
-    BUILD_WINDOWS_AGENT: False
+    BUILD_WINDOWS_AGENT: True
 
 jobs:
   windows-build-agent:
