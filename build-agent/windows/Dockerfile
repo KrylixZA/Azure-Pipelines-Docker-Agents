@@ -2,15 +2,18 @@ FROM mcr.microsoft.com/windows/servercore:1809
 
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'Continue'; $verbosePreference='Continue';"]
 
-RUN mkdir -Force C:\TEMP
+RUN mkdir -Force /TEMP
+WORKDIR /TEMP
  
 # Download & Install the Visual Studio Build Tools.
-ADD https://aka.ms/vs/17/release/vs_BuildTools.exe C:\TEMP\vs_BuildTools.exe
-RUN C:\TEMP\vs_BuildTools.exe --quiet --wait --norestart --nocache --noWeb --allWorkloads --includeRecommended --includeOptional || IF "%ERRORLEVEL%"=="3010" EXIT 0;
+ADD https://aka.ms/vs/17/release/vs_BuildTools.exe .\vs_BuildTools.exe
+RUN .\vs_BuildTools.exe --quiet --wait --norestart --nocache --noWeb --allWorkloads --includeRecommended --includeOptional || IF "%ERRORLEVEL%"=="3010" EXIT 0;
  
 # Install Agents for Visual Studio
-ADD https://aka.ms/vs/17/release/vs_TestAgent.exe C:\TEMP\vs_TestAgent.exe
-RUN C:\TEMP\vs_TestAgent.exe --quiet --wait --norestart --nocache || IF "%ERRORLEVEL%"=="3010" EXIT 0;
+ADD https://aka.ms/vs/17/release/vs_TestAgent.exe .\vs_TestAgent.exe
+RUN .\vs_TestAgent.exe --quiet --wait --norestart --nocache || IF "%ERRORLEVEL%"=="3010" EXIT 0;
+
+WORKDIR /
 
 # Install Chocolatey
 RUN Add-WindowsFeature Web-WebSockets; \
