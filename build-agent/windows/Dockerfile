@@ -67,8 +67,8 @@ SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPref
 # Install Java
 RUN Expand-Archive javajdk.zip; \
     Move-Item .\javajdk\java-11-openjdk-11.0.13.8-1.windows.ojdkbuild.x86_64 "${Env:ProgramFiles}\Java"; \
-    Expand-Archive javajre.zip \
-    MoveItem .\javajre\java-11-openjdk-11.0.13.8-1/java-11-openjdk-jre-11.0.13.8-1.windows.ojdkbuild.x86_64 "${Env:ProgramFiles(x86)}\Java";
+    Expand-Archive javajre.zip; \
+    Move-Item .\javajre\java-11-openjdk-jre-11.0.13.8-1.windows.ojdkbuild.x86_64 "${Env:ProgramFiles(x86)}\Java";
 
 WORKDIR /
 
