@@ -46,10 +46,10 @@ jobs:
           docker build -t krylixza/azure-pipelines-windows-build-agent:${{ steps.define_build_number.outputs.BUILD_NUMBER }} -m 2GB .;
         }
     
-  - name: Docker push
-    run: |
-      $shouldBuild = "${{ env.BUILD_WINDOWS_AGENT }}";
-      if ($shouldBuild -eq $true) {
-        docker push krylixza/azure-pipelines-windows-build-agent:${{ steps.define_build_number.outputs.BUILD_NUMBER }};
-        docker logout;
-      }
+    - name: Docker push
+      run: |
+        $shouldBuild = "${{ env.BUILD_WINDOWS_AGENT }}";
+        if ($shouldBuild -eq $true) {
+          docker push krylixza/azure-pipelines-windows-build-agent:${{ steps.define_build_number.outputs.BUILD_NUMBER }};
+          docker logout;
+        }
