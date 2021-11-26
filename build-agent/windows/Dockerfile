@@ -92,11 +92,11 @@ RUN choco install git -y; \
     choco install python -y;
 
 # Set environment variables
-RUN setx /M PATH $(${Env:PATH} + ';' + "${Env:ProgramFiles}\Java\bin"); \
-    setx /M PATH $(${Env:PATH} + ';' + "${Env:ProgramFiles(x86)}\Java"); \
-    setx /M PATH $(${Env:PATH} + ';' + "${Env:ProgramFiles}\Docker"); \
-    setx /M JAVA_HOME $("${Env:ProgramFiles}\Java"); \
-    setx /M java $("${Env:ProgramFiles(x86)}\Java");
+RUN setx /M PATH $(${Env:PATH} + ';' + ${Env:ProgramFiles} + '\Java\bin'); \
+    setx /M PATH $(${Env:PATH} + ';' + ${Env:ProgramFiles(x86)} + '\Java'); \
+    setx /M PATH $(${Env:PATH} + ';' + ${Env:ProgramFiles} + '\Docker'); \
+    setx /M JAVA_HOME $(${Env:ProgramFiles} + '\Java'); \
+    setx /M java $(${Env:ProgramFiles(x86)} + '\Java');
 
 # Cleanup after installs
 RUN Remove-Item C:\TEMP -Recurse;
