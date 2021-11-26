@@ -17,7 +17,7 @@ env:
 
 jobs:
   setbuildversion:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     outputs:
       BUILD_VERSION: ${{ steps.definebuildnumber.outputs.BUILD_VERSION }}
     steps:
