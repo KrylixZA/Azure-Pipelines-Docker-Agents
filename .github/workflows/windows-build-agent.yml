@@ -1,4 +1,4 @@
-name: Windows Build Agent
+name: WindowsBuildAgent
 
 on:
   push:
