@@ -19,10 +19,8 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - name: 'Checkout'
+    - name: Checkout
       uses: actions/checkout@v2
-      with:
-        fetch-depth: 0
 
     - name: Define build number
       id: define_build_number
@@ -39,13 +37,19 @@ jobs:
         echo $buildId;
         echo "##[set-output name=BUILD_NUMBER;]$(echo $buildId)";
 
-    - name: Build & push Docker image
+    - name: Docker build
       working-directory: ./build-agent/windows
       run: |
         $shouldBuild = "${{ env.BUILD_WINDOWS_AGENT }}";
         if ($shouldBuild -eq $true) {
           docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }};
           docker build -t krylixza/azure-pipelines-windows-build-agent:${{ steps.define_build_number.outputs.BUILD_NUMBER }} -m 2GB .;
+        }
+    
+    - name: Docker push
+      run: |
+        $shouldBuild = "${{ env.BUILD_WINDOWS_AGENT }}";
+        if ($shouldBuild -eq $true) {
           docker push krylixza/azure-pipelines-windows-build-agent:${{ steps.define_build_number.outputs.BUILD_NUMBER }};
           docker logout;
         }
