@@ -1,0 +1,84 @@
+name: Windows Build Agent
+
+on:
+  push:
+    paths:
+      - 'src/build-agent/windows'
+    branches:
+      - '**'
+  pull_request:
+    branches:
+      - '**'
+
+env:
+    MAJOR_VERSION: 1
+    MINOR_VERSION: 0
+    PATCH_VERSION: 1
+
+jobs:
+  build:
+    runs-on: windows-latest
+    outputs:
+      BUILD_VERSION: ${{ steps.define_build_number.outputs.BUILD_VERSION }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Define build number
+        id: define_build_number
+        run: |
+          $buildNumber = "${{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.PATCH_VERSION }}.$env:GITHUB_RUN_NUMBER";
+          $branchName = $env:GITHUB_REF -replace ".*/";
+          $buildId = "$buildNumber-$branchName";
+          echo $buildNumber;
+          echo $branchName;
+          echo $buildId;
+          if ($branchName -eq "master" -or $branchName -eq "main") {
+            $buildId = $buildNumber;
+          }
+          echo $buildId;
+          echo "##[set-output name=BUILD_VERSION;]$(echo $buildId)";
+
+      - name: Docker login
+        run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }};
+
+      - name: Docker build
+        working-directory: ./src/build-agent/windows
+        run: docker build -t krylixza/azure-pipelines-windows-build-agent:${{ steps.define_build_number.outputs.BUILD_VERSION }} -m 2GB .;
+      
+      - name: Docker push
+        run: docker push krylixza/azure-pipelines-windows-build-agent:${{ steps.define_build_number.outputs.BUILD_VERSION }};
+
+      - name: Docker logout
+        run: docker logout;
+
+  prerelease:
+    needs: build
+    if: success() && github.ref != 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ncipollo/release-action@v1
+        with:
+          prerelease: true
+          name: ${{ jobs.build.outputs.BUILD_VERSION }}
+          tag: ${{ jobs.build.outputs.BUILD_VERSION }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          body: |
+            Docker Hub Page: [krylixza/azure-pipelines-windows-build-agent](https://hub.docker.com/r/krylixza/azure-pipelines-windows-build-agent/tags)
+            To run: `docker run -e AZP_URL=https://dev.azure.com/<Your Org> -e AZP_TOKEN=<Your PAT> -e AZP_POOL=<Your Agent Pool> krylixza/azure-pipelines-windows-build-agent:${{ jobs.build.outputs.BUILD_VERSION }} [--once]`
+
+
+  release:
+    needs: build
+    if: success() && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps: 
+      - uses: ncipollo/release-action@v1
+        with:
+          prerelease: false
+          name: ${{ jobs.build.outputs.BUILD_VERSION }}
+          tag: latest
+          token: ${{ secrets.GITHUB_TOKEN }}
+          body: |
+            Docker Hub Page: [krylixza/azure-pipelines-windows-build-agent](https://hub.docker.com/r/krylixza/azure-pipelines-windows-build-agent/tags)
+            To run: `docker run -e AZP_URL=https://dev.azure.com/<Your Org> -e AZP_TOKEN=<Your PAT> -e AZP_POOL=<Your Agent Pool> krylixza/azure-pipelines-windows-build-agent:${{ jobs.build.outputs.BUILD_VERSION }} [--once]`
