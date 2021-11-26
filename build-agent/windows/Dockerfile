@@ -8,7 +8,7 @@ WORKDIR /TEMP
 ADD https://aka.ms/vs/16/release/vs_BuildTools.exe vs_BuildTools2019.exe
 ADD https://aka.ms/vs/16/release/vs_TestAgent.exe vs_TestAgent2019.exe
 ADD https://aka.ms/vs/17/release/vs_BuildTools.exe vs_BuildTools2022.exe
-ADD https://aka.ms/vs/17/release/vs_TestAgent.exe vs_BuildTools2022.exe
+ADD https://aka.ms/vs/17/release/vs_TestAgent.exe vs_TestAgent2022.exe
 ADD https://github.com/ojdkbuild/ojdkbuild/releases/download/java-11-openjdk-11.0.13.8-1/java-11-openjdk-11.0.13.8-1.windows.ojdkbuild.x86_64.zip javajdk.zip
 ADD https://github.com/ojdkbuild/ojdkbuild/releases/download/java-11-openjdk-11.0.13.8-1/java-11-openjdk-jre-11.0.13.8-1.windows.ojdkbuild.x86_64.zip javajre.zip
 
