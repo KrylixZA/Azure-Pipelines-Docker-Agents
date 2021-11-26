@@ -24,6 +24,10 @@ RUN .\vs_BuildTools2019.exe \
     --add Microsoft.VisualStudio.Workload.NetCoreBuildTools \
     --add Microsoft.VisualStudio.Workload.NodeBuildTools \
     --add Microsoft.VisualStudio.Workload.WebBuildTools \
+    --add Microsoft.Net.Component.4.5.TargetingPack \
+    --add Microsoft.Net.Component.4.6.TargetingPack \
+    --add Microsoft.Net.Component.4.7.TargetingPack \
+    --add Microsoft.Net.Component.4.8.TargetingPack \
     --includeRecommended \
     --includeOptional \
     --remove Microsoft.VisualStudio.Component.Windows10SDK.10240 \
@@ -45,6 +49,10 @@ RUN .\vs_BuildTools2022.exe \
     --add Microsoft.VisualStudio.Workload.NetCoreBuildTools \
     --add Microsoft.VisualStudio.Workload.NodeBuildTools \
     --add Microsoft.VisualStudio.Workload.WebBuildTools \
+    --add Microsoft.Net.Component.4.5.TargetingPack \
+    --add Microsoft.Net.Component.4.6.TargetingPack \
+    --add Microsoft.Net.Component.4.7.TargetingPack \
+    --add Microsoft.Net.Component.4.8.TargetingPack \
     --includeRecommended \
     --includeOptional \
     --remove Microsoft.VisualStudio.Component.Windows10SDK.10240 \
