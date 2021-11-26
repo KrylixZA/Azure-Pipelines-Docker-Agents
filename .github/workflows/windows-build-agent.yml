@@ -17,6 +17,7 @@ env:
 
 jobs:
   setbuildversion:
+    name: Set build version
     runs-on: windows-latest
     outputs:
       BUILD_VERSION: ${{ steps.definebuildnumber.outputs.BUILD_VERSION }}
@@ -77,8 +78,21 @@ jobs:
     runs-on: ubuntu-latest
     needs: [setbuildversion, build]
     if: success() && github.ref == 'refs/heads/main'
-    steps: 
+    steps:
       - uses: ncipollo/release-action@v1
+        name: Create version tag
+        with:
+          allowUpdates: true
+          prerelease: false
+          name: ${{ needs.setbuildversion.outputs.BUILD_VERSION }}
+          tag: ${{ needs.setbuildversion.outputs.BUILD_VERSION }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          body: |
+            Docker Hub Page: [krylixza/azure-pipelines-windows-build-agent](https://hub.docker.com/r/krylixza/azure-pipelines-windows-build-agent/tags)
+            To run: `docker run -e AZP_URL=https://dev.azure.com/<Your Org> -e AZP_TOKEN=<Your PAT> -e AZP_POOL=<Your Agent Pool> krylixza/azure-pipelines-windows-build-agent:${{ needs.setbuildversion.outputs.BUILD_VERSION }} [--once]`
+
+      - uses: ncipollo/release-action@v1
+        name: Create latest tag
         with:
           allowUpdates: true
           prerelease: false
