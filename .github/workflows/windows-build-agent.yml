@@ -59,6 +59,7 @@ jobs:
     steps:
       - uses: ncipollo/release-action@v1
         with:
+          allowUpdates: true
           prerelease: true
           name: ${{ needs.build.build.outputs.BUILD_VERSION }}
           tag: ${{ needs.build.outputs.BUILD_VERSION }}
@@ -74,6 +75,7 @@ jobs:
     steps: 
       - uses: ncipollo/release-action@v1
         with:
+          allowUpdates: true
           prerelease: false
           name: ${{ needs.build.outputs.BUILD_VERSION }}
           tag: latest
