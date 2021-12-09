@@ -18,6 +18,10 @@ RUN .\vs_BuildTools2019.exe \
     --wait \
     --norestart \
     --nocache \
+    --all \
+    --allWorkloads \
+    --includeRecommended \
+    --includeOptional \
     --remove Microsoft.VisualStudio.Component.Windows10SDK.10240 \
     --remove Microsoft.VisualStudio.Component.Windows10SDK.10586 \
     --remove Microsoft.VisualStudio.Component.Windows10SDK.14393 \
@@ -31,6 +35,10 @@ RUN .\vs_BuildTools2022.exe \
     --wait \
     --norestart \
     --nocache \
+    --all \
+    --allWorkloads \
+    --includeRecommended \
+    --includeOptional \
     --remove Microsoft.VisualStudio.Component.Windows10SDK.10240 \
     --remove Microsoft.VisualStudio.Component.Windows10SDK.10586 \
     --remove Microsoft.VisualStudio.Component.Windows10SDK.14393 \
