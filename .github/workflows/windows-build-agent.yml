@@ -3,7 +3,7 @@ name: Windows Build Agent
 on:
   push:
     paths:
-      - 'src/build-agent/windows'
+      - 'src/build-agent/windows/**'
       - '.github/workflows/windows-build-agent.yml'
     branches:
       - '**'
