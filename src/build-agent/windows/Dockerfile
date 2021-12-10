@@ -1,51 +1,45 @@
-FROM mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-ltsc2019
+FROM mcr.microsoft.com/dotnet/framework/runtime:4.8-windowsservercore-ltsc2019
 
 SHELL ["cmd", "/S", "/C"]
 
 WORKDIR /TEMP
  
 # Add installers
-ADD https://aka.ms/vs/16/release/vs_BuildTools.exe vs_BuildTools2019.exe
+ADD https://aka.ms/vs/16/release/vs_Community.exe vs_Community2019.exe
 ADD https://aka.ms/vs/16/release/vs_TestAgent.exe vs_TestAgent2019.exe
-ADD https://aka.ms/vs/17/release/vs_BuildTools.exe vs_BuildTools2022.exe
+ADD https://aka.ms/vs/17/release/vs_Community.exe vs_Community2022.exe
 ADD https://aka.ms/vs/17/release/vs_TestAgent.exe vs_TestAgent2022.exe
 ADD https://github.com/ojdkbuild/ojdkbuild/releases/download/java-11-openjdk-11.0.13.8-1/java-11-openjdk-11.0.13.8-1.windows.ojdkbuild.x86_64.zip javajdk.zip
 ADD https://github.com/ojdkbuild/ojdkbuild/releases/download/java-11-openjdk-11.0.13.8-1/java-11-openjdk-jre-11.0.13.8-1.windows.ojdkbuild.x86_64.zip javajre.zip
 
 # Visual Studio 2019 Build Tools
-RUN .\vs_BuildTools2019.exe modify \
+RUN .\vs_Community2019.exe \
     --quiet \
     --wait \
     --norestart \
     --nocache \
-    --installPath "${Env:ProgramFiles(x86)}\Microsoft Visual Studio\2019\BuildTools" \
-    --nickname "Visual Studio 2019 Build Tools" \
-    --add Microsoft.VisualStudio.Workload.AzureBuildTools \
-    --add Microsoft.VisualStudio.Workload.DataBuildTools \
-    --add Microsoft.VisualStudio.Workload.ManagedDesktopBuildTools \
-    --add Microsoft.VisualStudio.Workload.MSBuildTools \
-    --add Microsoft.VisualStudio.Workload.NetCoreBuildTools \
-    --add Microsoft.VisualStudio.Workload.NodeBuildTools \
-    --add Microsoft.VisualStudio.Workload.WebBuildTools \
+    --add Microsoft.VisualStudio.Workload.Azure \
+    --add Microsoft.VisualStudio.Workload.Data \
+    --add Microsoft.VisualStudio.Workload.ManagedDesktop \
+    --add Microsoft.VisualStudio.Workload.NetCoreTools \
+    --add Microsoft.VisualStudio.Workload.NetWeb \
+    --add Microsoft.VisualStudio.Workload.Node \
     --includeRecommended \
     --includeOptional \
     || IF "%ERRORLEVEL%"=="3010" EXIT 0;
 RUN .\vs_TestAgent2019.exe --quiet --wait --norestart --nocache || IF "%ERRORLEVEL%"=="3010" EXIT 0;
 
 # Visual Studio 2022 Build Tools
-RUN .\vs_BuildTools2022.exe modify \
+RUN .\vs_Community2022.exe modify \
     --quiet \
     --wait \
     --norestart \
     --nocache \
-    --installPath "${Env:ProgramFiles}\Microsoft Visual Studio\2022\BuildTools" \
-    --nickname "Visual Studio 2022 Build Tools" \
-    --add Microsoft.VisualStudio.Workload.AzureBuildTools \
-    --add Microsoft.VisualStudio.Workload.DataBuildTools \
-    --add Microsoft.VisualStudio.Workload.ManagedDesktopBuildTools \
-    --add Microsoft.VisualStudio.Workload.MSBuildTools \
-    --add Microsoft.VisualStudio.Workload.NodeBuildTools \
-    --add Microsoft.VisualStudio.Workload.WebBuildTools \
+    --add Microsoft.VisualStudio.Workload.Azure \
+    --add Microsoft.VisualStudio.Workload.Data \
+    --add Microsoft.VisualStudio.Workload.ManagedDesktop \
+    --add Microsoft.VisualStudio.Workload.NetWeb \
+    --add Microsoft.VisualStudio.Workload.Node \
     --includeRecommended \
     --includeOptional \
     || IF "%ERRORLEVEL%"=="3010" EXIT 0;
