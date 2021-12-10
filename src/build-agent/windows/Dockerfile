@@ -42,7 +42,7 @@ RUN .\vs_BuildTools2022.exe \
     --wait \
     --norestart \
     --nocache \
-    --installPath "${Env:ProgramFiles}\Microsoft Visual Studio\2019\BuildTools" \
+    --installPath "${Env:ProgramFiles}\Microsoft Visual Studio\2022\BuildTools" \
     --nickname "Visual Studio 2022 Build Tools" \
     --add Microsoft.VisualStudio.Workload.AzureBuildTools \
     --add Microsoft.VisualStudio.Workload.DataBuildTools \
