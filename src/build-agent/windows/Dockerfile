@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/framework/runtime:4.8-windowsservercore-ltsc2019
+FROM mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-ltsc2019
 
 SHELL ["cmd", "/S", "/C"]
 
@@ -18,8 +18,13 @@ RUN .\vs_BuildTools2019.exe \
     --wait \
     --norestart \
     --nocache \
-    --all \
-    --allWorkloads \
+    --add Microsoft.VisualStudio.Workload.AzureBuildTools \
+    --add Microsoft.VisualStudio.Workload.DataBuildTools \
+    --add Microsoft.VisualStudio.Workload.ManagedDesktopBuildTools \
+    --add Microsoft.VisualStudio.Workload.MSBuildTools \
+    --add Microsoft.VisualStudio.Workload.NetCoreBuildTools \
+    --add Microsoft.VisualStudio.Workload.NodeBuildTools \
+    --add Microsoft.VisualStudio.Workload.WebBuildTools \
     --includeRecommended \
     --includeOptional \
     --remove Microsoft.VisualStudio.Component.Windows10SDK.10240 \
@@ -35,8 +40,13 @@ RUN .\vs_BuildTools2022.exe \
     --wait \
     --norestart \
     --nocache \
-    --all \
-    --allWorkloads \
+    --add Microsoft.VisualStudio.Workload.AzureBuildTools \
+    --add Microsoft.VisualStudio.Workload.DataBuildTools \
+    --add Microsoft.VisualStudio.Workload.ManagedDesktopBuildTools \
+    --add Microsoft.VisualStudio.Workload.MSBuildTools \
+    --add Microsoft.VisualStudio.Workload.NetCoreBuildTools \
+    --add Microsoft.VisualStudio.Workload.NodeBuildTools \
+    --add Microsoft.VisualStudio.Workload.WebBuildTools \
     --includeRecommended \
     --includeOptional \
     --remove Microsoft.VisualStudio.Component.Windows10SDK.10240 \
