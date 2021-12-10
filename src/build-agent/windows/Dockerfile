@@ -29,15 +29,11 @@ RUN .\vs_BuildTools2019.exe modify \
     --add Microsoft.VisualStudio.Workload.WebBuildTools \
     --includeRecommended \
     --includeOptional \
-    --remove Microsoft.VisualStudio.Component.Windows10SDK.10240 \
-    --remove Microsoft.VisualStudio.Component.Windows10SDK.10586 \
-    --remove Microsoft.VisualStudio.Component.Windows10SDK.14393 \
-    --remove Microsoft.VisualStudio.Component.Windows81SDK \
     || IF "%ERRORLEVEL%"=="3010" EXIT 0;
 RUN .\vs_TestAgent2019.exe --quiet --wait --norestart --nocache || IF "%ERRORLEVEL%"=="3010" EXIT 0;
 
 # Visual Studio 2022 Build Tools
-RUN .\vs_BuildTools2022.exe \
+RUN .\vs_BuildTools2022.exe modify \
     --quiet \
     --wait \
     --norestart \
@@ -52,10 +48,6 @@ RUN .\vs_BuildTools2022.exe \
     --add Microsoft.VisualStudio.Workload.WebBuildTools \
     --includeRecommended \
     --includeOptional \
-    --remove Microsoft.VisualStudio.Component.Windows10SDK.10240 \
-    --remove Microsoft.VisualStudio.Component.Windows10SDK.10586 \
-    --remove Microsoft.VisualStudio.Component.Windows10SDK.14393 \
-    --remove Microsoft.VisualStudio.Component.Windows81SDK \
     || IF "%ERRORLEVEL%"=="3010" EXIT 0;
 RUN .\vs_TestAgent2022.exe --quiet --wait --norestart --nocache || IF "%ERRORLEVEL%"=="3010" EXIT 0;
 
