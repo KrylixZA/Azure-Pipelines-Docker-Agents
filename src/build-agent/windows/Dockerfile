@@ -13,17 +13,14 @@ ADD https://github.com/ojdkbuild/ojdkbuild/releases/download/java-11-openjdk-11.
 ADD https://github.com/ojdkbuild/ojdkbuild/releases/download/java-11-openjdk-11.0.13.8-1/java-11-openjdk-jre-11.0.13.8-1.windows.ojdkbuild.x86_64.zip javajre.zip
 
 # Visual Studio 2019 Build Tools
-RUN .\vs_BuildTools2019.exe \
-    --quiet \
-    --wait \
-    --norestart \
-    --nocache \
+RUN .\vs_BuildTools2019.exe --quiet --wait --norestart --nocache modify  \
     --add Microsoft.VisualStudio.Workload.AzureBuildTools \
     --add Microsoft.VisualStudio.Workload.DataBuildTools \
     --add Microsoft.VisualStudio.Workload.ManagedDesktopBuildTools \
     --add Microsoft.VisualStudio.Workload.MSBuildTools \
     --add Microsoft.VisualStudio.Workload.NetCoreBuildTools \
     --add Microsoft.VisualStudio.Workload.NodeBuildTools \
+    --add Microsoft.VisualStudio.Workload.UniversalBuildTools \
     --add Microsoft.VisualStudio.Workload.WebBuildTools \
     --includeRecommended \
     --includeOptional \
@@ -35,17 +32,14 @@ RUN .\vs_BuildTools2019.exe \
 RUN .\vs_TestAgent2019.exe --quiet --wait --norestart --nocache || IF "%ERRORLEVEL%"=="3010" EXIT 0;
 
 # Visual Studio 2022 Build Tools
-RUN .\vs_BuildTools2022.exe \
-    --quiet \
-    --wait \
-    --norestart \
-    --nocache \
+RUN .\vs_BuildTools2022.exe --quiet --wait --norestart --nocache modify \
     --add Microsoft.VisualStudio.Workload.AzureBuildTools \
     --add Microsoft.VisualStudio.Workload.DataBuildTools \
     --add Microsoft.VisualStudio.Workload.ManagedDesktopBuildTools \
     --add Microsoft.VisualStudio.Workload.MSBuildTools \
     --add Microsoft.VisualStudio.Workload.NetCoreBuildTools \
     --add Microsoft.VisualStudio.Workload.NodeBuildTools \
+    --add Microsoft.VisualStudio.Workload.UniversalBuildTools \
     --add Microsoft.VisualStudio.Workload.WebBuildTools \
     --includeRecommended \
     --includeOptional \
