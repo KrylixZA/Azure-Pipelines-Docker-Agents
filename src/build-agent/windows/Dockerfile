@@ -33,7 +33,7 @@ RUN .\vs_BuildTools2019.exe --quiet --wait --norestart --nocache \
     || IF "%ERRORLEVEL%"=="3010" EXIT 0;
 RUN .\vs_TestAgent2019.exe --quiet --wait --norestart --nocache || IF "%ERRORLEVEL%"=="3010" EXIT 0;
 
-Visual Studio 2022 Build Tools
+# Visual Studio 2022 Build Tools
 RUN .\vs_BuildTools2022.exe --quiet --wait --norestart --nocache \
     --add Microsoft.VisualStudio.Workload.AzureBuildTools \
     --add Microsoft.VisualStudio.Workload.DataBuildTools \
