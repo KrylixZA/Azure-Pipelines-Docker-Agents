@@ -13,7 +13,18 @@ ADD https://github.com/ojdkbuild/ojdkbuild/releases/download/java-11-openjdk-11.
 ADD https://github.com/ojdkbuild/ojdkbuild/releases/download/java-11-openjdk-11.0.13.8-1/java-11-openjdk-jre-11.0.13.8-1.windows.ojdkbuild.x86_64.zip javajre.zip
 
 # Visual Studio 2019 Build Tools
-RUN .\vs_BuildTools2019.exe --quiet --wait --norestart --nocache --all --includeOptional --includeRecommended \
+RUN .\vs_BuildTools2019.exe --quiet --wait --norestart --nocache \
+    --add Microsoft.VisualStudio.Workload.AzureBuildTools \
+    --add Microsoft.VisualStudio.Workload.DataBuildTools \
+    --add Microsoft.VisualStudio.Workload.ManagedDesktopBuildTools \
+    --add Microsoft.VisualStudio.Workload.MSBuildTools \
+    --add Microsoft.VisualStudio.Workload.NetCoreBuildTools \
+    --add Microsoft.VisualStudio.Workload.NodeBuildTools \
+    --add Microsoft.VisualStudio.Workload.UniversalBuildTools \
+    --add Microsoft.VisualStudio.Workload.VisualStudioExtensionBuildTools \
+    --add Microsoft.VisualStudio.Workload.WebBuildTools \
+    --add Microsoft.VisualStudio.Workload.XamarinBuildTools \
+    --includeOptional \
     --remove Microsoft.VisualStudio.Component.Windows10SDK.10240 \
     --remove Microsoft.VisualStudio.Component.Windows10SDK.10586 \
     --remove Microsoft.VisualStudio.Component.Windows10SDK.14393 \
