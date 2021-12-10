@@ -30,7 +30,7 @@ RUN .\vs_Community2019.exe \
 RUN .\vs_TestAgent2019.exe --quiet --wait --norestart --nocache || IF "%ERRORLEVEL%"=="3010" EXIT 0;
 
 # Visual Studio 2022 Build Tools
-RUN .\vs_Community2022.exe modify \
+RUN .\vs_Community2022.exe \
     --quiet \
     --wait \
     --norestart \
