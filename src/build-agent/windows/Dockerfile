@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-ltsc2019
+FROM mcr.microsoft.com/dotnet/framework/runtime:4.8-windowsservercore-ltsc2019
 
 SHELL ["cmd", "/S", "/C"]
 
@@ -7,14 +7,13 @@ WORKDIR /TEMP
 # Add installers
 ADD https://aka.ms/vs/16/release/vs_BuildTools.exe vs_BuildTools2019.exe
 ADD https://aka.ms/vs/16/release/vs_TestAgent.exe vs_TestAgent2019.exe
-ADD https://aka.ms/vs/17/release/vs_BuildTools.exe vs_BuildTools2022.exe
-ADD https://aka.ms/vs/17/release/vs_TestAgent.exe vs_TestAgent2022.exe
+# ADD https://aka.ms/vs/17/release/vs_BuildTools.exe vs_BuildTools2022.exe
+# ADD https://aka.ms/vs/17/release/vs_TestAgent.exe vs_TestAgent2022.exe
 ADD https://github.com/ojdkbuild/ojdkbuild/releases/download/java-11-openjdk-11.0.13.8-1/java-11-openjdk-11.0.13.8-1.windows.ojdkbuild.x86_64.zip javajdk.zip
 ADD https://github.com/ojdkbuild/ojdkbuild/releases/download/java-11-openjdk-11.0.13.8-1/java-11-openjdk-jre-11.0.13.8-1.windows.ojdkbuild.x86_64.zip javajre.zip
 
 # Visual Studio 2019 Build Tools
-RUN .\vs_BuildTools2019.exe modify --quiet --wait --norestart --nocache  \
-    --all \
+RUN .\vs_BuildTools2019.exe --quiet --wait --norestart --nocache --all --includeOptional --includeRecommended \
     --remove Microsoft.VisualStudio.Component.Windows10SDK.10240 \
     --remove Microsoft.VisualStudio.Component.Windows10SDK.10586 \
     --remove Microsoft.VisualStudio.Component.Windows10SDK.14393 \
@@ -23,14 +22,14 @@ RUN .\vs_BuildTools2019.exe modify --quiet --wait --norestart --nocache  \
 RUN .\vs_TestAgent2019.exe --quiet --wait --norestart --nocache || IF "%ERRORLEVEL%"=="3010" EXIT 0;
 
 # Visual Studio 2022 Build Tools
-RUN .\vs_BuildTools2022.exe modify --quiet --wait --norestart --nocache \
-    --all \
-    --remove Microsoft.VisualStudio.Component.Windows10SDK.10240 \
-    --remove Microsoft.VisualStudio.Component.Windows10SDK.10586 \
-    --remove Microsoft.VisualStudio.Component.Windows10SDK.14393 \
-    --remove Microsoft.VisualStudio.Component.Windows81SDK \
-    || IF "%ERRORLEVEL%"=="3010" EXIT 0;
-RUN .\vs_TestAgent2022.exe --quiet --wait --norestart --nocache || IF "%ERRORLEVEL%"=="3010" EXIT 0;
+# RUN .\vs_BuildTools2022.exe modify --quiet --wait --norestart --nocache \
+#     --all \
+#     --remove Microsoft.VisualStudio.Component.Windows10SDK.10240 \
+#     --remove Microsoft.VisualStudio.Component.Windows10SDK.10586 \
+#     --remove Microsoft.VisualStudio.Component.Windows10SDK.14393 \
+#     --remove Microsoft.VisualStudio.Component.Windows81SDK \
+#     || IF "%ERRORLEVEL%"=="3010" EXIT 0;
+# RUN .\vs_TestAgent2022.exe --quiet --wait --norestart --nocache || IF "%ERRORLEVEL%"=="3010" EXIT 0;
 
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'Continue'; $verbosePreference='Continue';"]
 
