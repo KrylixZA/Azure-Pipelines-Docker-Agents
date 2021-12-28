@@ -18,14 +18,7 @@ RUN .\vs_Community2019.exe \
     --wait \
     --norestart \
     --nocache \
-    --add Microsoft.VisualStudio.Workload.Azure \
-    --add Microsoft.VisualStudio.Workload.Data \
-    --add Microsoft.VisualStudio.Workload.ManagedDesktop \
-    --add Microsoft.VisualStudio.Workload.NetCoreTools \
-    --add Microsoft.VisualStudio.Workload.NetWeb \
-    --add Microsoft.VisualStudio.Workload.Node \
-    --includeRecommended \
-    --includeOptional \
+    --all \
     || IF "%ERRORLEVEL%"=="3010" EXIT 0;
 RUN .\vs_TestAgent2019.exe --quiet --wait --norestart --nocache || IF "%ERRORLEVEL%"=="3010" EXIT 0;
 
@@ -35,13 +28,7 @@ RUN .\vs_Community2022.exe \
     --wait \
     --norestart \
     --nocache \
-    --add Microsoft.VisualStudio.Workload.Azure \
-    --add Microsoft.VisualStudio.Workload.Data \
-    --add Microsoft.VisualStudio.Workload.ManagedDesktop \
-    --add Microsoft.VisualStudio.Workload.NetWeb \
-    --add Microsoft.VisualStudio.Workload.Node \
-    --includeRecommended \
-    --includeOptional \
+    --all \
     || IF "%ERRORLEVEL%"=="3010" EXIT 0;
 RUN .\vs_TestAgent2022.exe --quiet --wait --norestart --nocache || IF "%ERRORLEVEL%"=="3010" EXIT 0;
 
