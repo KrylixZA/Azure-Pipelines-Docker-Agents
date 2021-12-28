@@ -18,7 +18,9 @@ RUN .\vs_Community2019.exe \
     --wait \
     --norestart \
     --nocache \
-    --all \
+    --allWorkloads \
+    --includeRecommended \
+    --includeOptional \
     || IF "%ERRORLEVEL%"=="3010" EXIT 0;
 RUN .\vs_TestAgent2019.exe --quiet --wait --norestart --nocache || IF "%ERRORLEVEL%"=="3010" EXIT 0;
 
@@ -28,7 +30,9 @@ RUN .\vs_Community2022.exe \
     --wait \
     --norestart \
     --nocache \
-    --all \
+    --allWorkloads \
+    --includeRecommended \
+    --includeOptional \
     || IF "%ERRORLEVEL%"=="3010" EXIT 0;
 RUN .\vs_TestAgent2022.exe --quiet --wait --norestart --nocache || IF "%ERRORLEVEL%"=="3010" EXIT 0;
 
