@@ -22,7 +22,6 @@ RUN .\vs_enterprise2019.exe \
     --add Microsoft.VisualStudio.Workload.Data \
     --add Microsoft.VisualStudio.Workload.ManagedDesktop \
     --add Microsoft.VisualStudio.Workload.NetCoreTools \
-    --add Microsoft.VisualStudio.Workload.NetCrossPlat \
     --add Microsoft.VisualStudio.Workload.NetWeb \
     --add Microsoft.VisualStudio.Workload.Node \
     --includeRecommended \
@@ -40,7 +39,6 @@ RUN .\vs_enterprise2022.exe \
     --add Microsoft.VisualStudio.Workload.Data \
     --add Microsoft.VisualStudio.Workload.ManagedDesktop \
     --add Microsoft.VisualStudio.Workload.ManagedGame \
-    --add Microsoft.VisualStudio.Workload.NetCrossPlat \
     --add Microsoft.VisualStudio.Workload.NetWeb \
     --add Microsoft.VisualStudio.Workload.Node \
     
