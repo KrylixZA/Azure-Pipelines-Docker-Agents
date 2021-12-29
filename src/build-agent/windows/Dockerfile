@@ -5,36 +5,49 @@ SHELL ["cmd", "/S", "/C"]
 WORKDIR /TEMP
  
 # Add installers
-ADD https://aka.ms/vs/16/release/vs_Community.exe vs_Community2019.exe
-ADD https://aka.ms/vs/16/release/vs_TestAgent.exe vs_TestAgent2019.exe
-ADD https://aka.ms/vs/17/release/vs_Community.exe vs_Community2022.exe
-ADD https://aka.ms/vs/17/release/vs_TestAgent.exe vs_TestAgent2022.exe
+ADD https://aka.ms/vs/16/release/vs_enterprise.exe vs_enterprise2019.exe
+ADD https://aka.ms/vs/16/release/vs_testagent.exe vs_testagent2019.exe
+ADD https://aka.ms/vs/17/release/vs_enterprise.exe vs_enterprise2022.exe
+ADD https://aka.ms/vs/17/release/vs_testagent.exe vs_testagent2022.exe
 ADD https://github.com/ojdkbuild/ojdkbuild/releases/download/java-11-openjdk-11.0.13.8-1/java-11-openjdk-11.0.13.8-1.windows.ojdkbuild.x86_64.zip javajdk.zip
 ADD https://github.com/ojdkbuild/ojdkbuild/releases/download/java-11-openjdk-11.0.13.8-1/java-11-openjdk-jre-11.0.13.8-1.windows.ojdkbuild.x86_64.zip javajre.zip
 
 # Visual Studio 2019 Build Tools
-RUN .\vs_Community2019.exe \
+RUN .\vs_enterprise2019.exe \
     --quiet \
     --wait \
     --norestart \
     --nocache \
-    --allWorkloads \
+    --add Microsoft.VisualStudio.Workload.Azure \
+    --add Microsoft.VisualStudio.Workload.Data \
+    --add Microsoft.VisualStudio.Workload.ManagedDesktop \
+    --add Microsoft.VisualStudio.Workload.NetCoreTools \
+    --add Microsoft.VisualStudio.Workload.NetCrossPlat \
+    --add Microsoft.VisualStudio.Workload.NetWeb \
+    --add Microsoft.VisualStudio.Workload.Node \
     --includeRecommended \
     --includeOptional \
     || IF "%ERRORLEVEL%"=="3010" EXIT 0;
-RUN .\vs_TestAgent2019.exe --quiet --wait --norestart --nocache || IF "%ERRORLEVEL%"=="3010" EXIT 0;
+RUN .\vs_testagent2019.exe --quiet --wait --norestart --nocache || IF "%ERRORLEVEL%"=="3010" EXIT 0;
 
 # Visual Studio 2022 Build Tools
-RUN .\vs_Community2022.exe \
+RUN .\vs_enterprise2022.exe \
     --quiet \
     --wait \
     --norestart \
     --nocache \
-    --allWorkloads \
+    --add Microsoft.VisualStudio.Workload.Azure \
+    --add Microsoft.VisualStudio.Workload.Data \
+    --add Microsoft.VisualStudio.Workload.ManagedDesktop \
+    --add Microsoft.VisualStudio.Workload.ManagedGame \
+    --add Microsoft.VisualStudio.Workload.NetCrossPlat \
+    --add Microsoft.VisualStudio.Workload.NetWeb \
+    --add Microsoft.VisualStudio.Workload.Node \
+    
     --includeRecommended \
     --includeOptional \
     || IF "%ERRORLEVEL%"=="3010" EXIT 0;
-RUN .\vs_TestAgent2022.exe --quiet --wait --norestart --nocache || IF "%ERRORLEVEL%"=="3010" EXIT 0;
+RUN .\vs_testagent2022.exe --quiet --wait --norestart --nocache || IF "%ERRORLEVEL%"=="3010" EXIT 0;
 
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'Continue'; $verbosePreference='Continue';"]
 
