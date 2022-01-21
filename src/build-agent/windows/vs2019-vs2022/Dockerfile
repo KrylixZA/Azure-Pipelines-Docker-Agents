@@ -41,7 +41,6 @@ RUN .\vs_enterprise2022.exe \
     --add Microsoft.VisualStudio.Workload.ManagedGame \
     --add Microsoft.VisualStudio.Workload.NetWeb \
     --add Microsoft.VisualStudio.Workload.Node \
-    
     --includeRecommended \
     --includeOptional \
     || IF "%ERRORLEVEL%"=="3010" EXIT 0;
