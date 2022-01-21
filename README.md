@@ -1,7 +1,7 @@
 # Azure Pipelines Docker Agents
 A collection of Dockerfiles that produce a variety of implementations of the Azure Pipelines Agent.
 
-## Windows agents
+## Windows agents [![Windows Build Agent](https://github.com/KrylixZA/Azure-Pipelines-Docker-Agents/actions/workflows/windows-build-agent.yml/badge.svg)](https://github.com/KrylixZA/Azure-Pipelines-Docker-Agents/actions/workflows/windows-build-agent.yml)
 
 |  Image |  Description  |
 |----|----|
