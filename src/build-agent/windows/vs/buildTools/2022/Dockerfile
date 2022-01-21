@@ -5,8 +5,8 @@ SHELL ["cmd", "/S", "/C"]
 WORKDIR /TEMP
  
 # Add installers
-ADD https://aka.ms/vs/16/release/vs_buildtools.exe vs_buildtools.exe
-ADD https://aka.ms/vs/16/release/vs_testagent.exe vs_testagent.exe
+ADD https://aka.ms/vs/17/release/vs_buildtools.exe vs_buildtools.exe
+ADD https://aka.ms/vs/17/release/vs_testagent.exe vs_testagent.exe
 ADD https://github.com/ojdkbuild/ojdkbuild/releases/download/java-11-openjdk-11.0.13.8-1/java-11-openjdk-11.0.13.8-1.windows.ojdkbuild.x86_64.zip javajdk.zip
 ADD https://github.com/ojdkbuild/ojdkbuild/releases/download/java-11-openjdk-11.0.13.8-1/java-11-openjdk-jre-11.0.13.8-1.windows.ojdkbuild.x86_64.zip javajre.zip
 

@@ -7,3 +7,5 @@ A collection of Dockerfiles that produce a variety of implementations of the Azu
 |----|----|
 |  [krylixza/azure/pipelines/build/agent/windows/vs/enterprise/2019](https://hub.docker.com/repository/docker/krylixza/azure/pipelines/build/agent/windows/vs/enterprise/2019) | This image contains Visual Studio Enterprise workloads for vs2019 |
 |  [krylixza/azure/pipelines/build/agent/windows/vs/enterprise/2022](https://hub.docker.com/repository/docker/krylixza/azure/pipelines/build/agent/windows/vs/enterprise/2022) | This image contains Visual Studio Enterprise workloads for vs2022 |
+|  [krylixza/azure/pipelines/build/agent/windows/vs/buildTools/2019](https://hub.docker.com/repository/docker/krylixza/azure/pipelines/build/agent/windows/vs/buildTools/2019) | This image contains Visual Studio Build Tools workloads for vs2019 |
+|  [krylixza/azure/pipelines/build/agent/windows/vs/buildTools/2022](https://hub.docker.com/repository/docker/krylixza/azure/pipelines/build/agent/windows/vs/buildTools/2022) | This image contains Visual Studio Build Tools workloads for vs2022 |
