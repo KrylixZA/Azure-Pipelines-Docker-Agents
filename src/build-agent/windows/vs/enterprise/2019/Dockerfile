@@ -5,13 +5,13 @@ SHELL ["cmd", "/S", "/C"]
 WORKDIR /TEMP
  
 # Add installers
-ADD https://aka.ms/vs/16/release/vs_enterprise.exe vs_enterprise2019.exe
-ADD https://aka.ms/vs/16/release/vs_testagent.exe vs_testagent2019.exe
+ADD https://aka.ms/vs/16/release/vs_enterprise.exe vs_enterprise.exe
+ADD https://aka.ms/vs/16/release/vs_testagent.exe vs_testagent.exe
 ADD https://github.com/ojdkbuild/ojdkbuild/releases/download/java-11-openjdk-11.0.13.8-1/java-11-openjdk-11.0.13.8-1.windows.ojdkbuild.x86_64.zip javajdk.zip
 ADD https://github.com/ojdkbuild/ojdkbuild/releases/download/java-11-openjdk-11.0.13.8-1/java-11-openjdk-jre-11.0.13.8-1.windows.ojdkbuild.x86_64.zip javajre.zip
 
 # Visual Studio 2019 Build Tools
-RUN .\vs_enterprise2019.exe \
+RUN .\vs_enterprise.exe \
     --quiet \
     --wait \
     --norestart \
@@ -25,7 +25,7 @@ RUN .\vs_enterprise2019.exe \
     --includeRecommended \
     --includeOptional \
     || IF "%ERRORLEVEL%"=="3010" EXIT 0;
-RUN .\vs_testagent2019.exe --quiet --wait --norestart --nocache || IF "%ERRORLEVEL%"=="3010" EXIT 0;
+RUN .\vs_testagent.exe --quiet --wait --norestart --nocache || IF "%ERRORLEVEL%"=="3010" EXIT 0;
 
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'Continue'; $verbosePreference='Continue';"]
 

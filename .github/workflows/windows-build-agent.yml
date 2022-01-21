@@ -37,35 +37,6 @@ jobs:
           echo $buildId;
           echo "##[set-output name=BUILD_VERSION;]$(echo $buildId)";
 
-  vs2019vs2022enterprise:
-    name: vs2019 and vs2022 Enterprise
-    runs-on: windows-latest
-    needs: setbuildversion
-    if: success()
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Docker login
-        uses: docker/login-action@v1
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-          logout: true
-
-      - name: Docker build
-        working-directory: ./src/build-agent/windows/vs/enterprise/2019-2022
-        run: docker build -t ${{ env.DockerHubProfile }}/${{ env.DockerRepo }}/vs/enteprise/20192022:${{ needs.setbuildversion.outputs.BUILD_VERSION }} -m 2GB .;
-      
-      - name: Docker push
-        run: docker push ${{ env.DockerHubProfile }}/${{ env.DockerRepo }}/vs/enteprise/20192022:${{ needs.setbuildversion.outputs.BUILD_VERSION }};
-
-      - name: Create latest tag
-        if: success() && github.ref == 'refs/heads/main'
-        run: |
-          docker tag ${{ env.DockerHubProfile }}/${{ env.DockerRepo }}/vs/enteprise/20192022:${{ needs.setbuildversion.outputs.BUILD_VERSION }} ${{ env.DockerHubProfile }}/${{ env.DockerRepo }}/vs/enteprise/20192022:latest
-          docker push ${{ env.DockerHubProfile }}/${{ env.DockerRepo }}/vs/enteprise/20192022:latest
-
   vs2019enterprise:
     name: vs2019 Enterprise
     runs-on: windows-latest
@@ -123,6 +94,64 @@ jobs:
         run: |
           docker tag ${{ env.DockerHubProfile }}/${{ env.DockerRepo }}/vs/enteprise/2022:${{ needs.setbuildversion.outputs.BUILD_VERSION }} ${{ env.DockerHubProfile }}/${{ env.DockerRepo }}/vs/enteprise/2022:latest
           docker push ${{ env.DockerHubProfile }}/${{ env.DockerRepo }}/vs/enteprise/2022:latest
+
+  vs2019buildTools:
+    name: vs2019 Build Tools
+    runs-on: windows-latest
+    needs: setbuildversion
+    if: success()
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Docker login
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          logout: true
+
+      - name: Docker build
+        working-directory: ./src/build-agent/windows/vs/buildTools/2019
+        run: docker build -t ${{ env.DockerHubProfile }}/${{ env.DockerRepo }}/vs/buildTools/2019:${{ needs.setbuildversion.outputs.BUILD_VERSION }} -m 2GB .;
+      
+      - name: Docker push
+        run: docker push ${{ env.DockerHubProfile }}/${{ env.DockerRepo }}/vs/buildTools/2019:${{ needs.setbuildversion.outputs.BUILD_VERSION }};
+
+      - name: Create latest tag
+        if: success() && github.ref == 'refs/heads/main'
+        run: |
+          docker tag ${{ env.DockerHubProfile }}/${{ env.DockerRepo }}/vs/buildTools/2019:${{ needs.setbuildversion.outputs.BUILD_VERSION }} ${{ env.DockerHubProfile }}/${{ env.DockerRepo }}/vs/buildTools/2019:latest
+          docker push ${{ env.DockerHubProfile }}/${{ env.DockerRepo }}/vs/buildTools/2019:latest
+
+  vs2022buildTools:
+    name: vs2022 Build Tools
+    runs-on: windows-latest
+    needs: setbuildversion
+    if: success()
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Docker login
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          logout: true
+
+      - name: Docker build
+        working-directory: ./src/build-agent/windows/vs/buildTools/2022
+        run: docker build -t ${{ env.DockerHubProfile }}/${{ env.DockerRepo }}/vs/buildTools/2022:${{ needs.setbuildversion.outputs.BUILD_VERSION }} -m 2GB .;
+      
+      - name: Docker push
+        run: docker push ${{ env.DockerHubProfile }}/${{ env.DockerRepo }}/vs/buildTools/202:${{ needs.setbuildversion.outputs.BUILD_VERSION }};
+
+      - name: Create latest tag
+        if: success() && github.ref == 'refs/heads/main'
+        run: |
+          docker tag ${{ env.DockerHubProfile }}/${{ env.DockerRepo }}/vs/buildTools/2022:${{ needs.setbuildversion.outputs.BUILD_VERSION }} ${{ env.DockerHubProfile }}/${{ env.DockerRepo }}/vs/buildTools/2022:latest
+          docker push ${{ env.DockerHubProfile }}/${{ env.DockerRepo }}/vs/buildTools/2022:latest
 
   # prerelease:
   #   name: Create pre-release
