@@ -54,7 +54,7 @@ jobs:
           logout: true
 
       - name: Docker build
-        working-directory: ./src/build-agent/windows/2019-vs2022
+        working-directory: ./src/build-agent/windows/vs/enterprise/2019-2022
         run: docker build -t ${{ env.DockerHubProfile }}/${{ env.DockerRepo }}/vs/enteprise/20192022:${{ needs.setbuildversion.outputs.BUILD_VERSION }} -m 2GB .;
       
       - name: Docker push
