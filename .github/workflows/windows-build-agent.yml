@@ -1,15 +1,15 @@
 name: Windows Build Agent
 
-on:
-  push:
-    paths:
-      - 'src/build-agent/windows/**'
-      - '.github/workflows/windows-build-agent.yml'
-    branches:
-      - '**'
-  pull_request:
-    branches:
-      - '**'
+# on:
+#   push:
+#     paths:
+#       - 'src/build-agent/windows/**'
+#       - '.github/workflows/windows-build-agent.yml'
+#     branches:
+#       - '**'
+#   pull_request:
+#     branches:
+#       - '**'
 
 env:
     MAJOR_VERSION: 1
