@@ -129,38 +129,54 @@ jobs:
       - name: Docker push
         run: docker push ${{ env.DockerHubProfile }}/${{ env.DockerRepo }}:2022-buildtools-${{ needs.setbuildversion.outputs.BUILD_VERSION }};
 
-  # prerelease:
-  #   name: Create pre-release
-  #   runs-on: ubuntu-latest
-  #   needs: [ setbuildversion, vs2019enterprise, vs2022enterprise, vs2019buildTools, vs2022buildTools ]
-  #   if: success() && github.ref != 'refs/heads/main'
-  #   steps:
-  #     - name: Create pre-release tag
-  #       uses: ncipollo/release-action@v1
-  #       with:
-  #         allowUpdates: false
-  #         prerelease: true
-  #         name: ${{ needs.setbuildversion.outputs.BUILD_VERSION }}
-  #         tag: ${{ needs.setbuildversion.outputs.BUILD_VERSION }}
-  #         token: ${{ secrets.GITHUB_TOKEN }}
-  #         body: |
-  #           Docker Hub: [krylixza/azure-pipelines-windows-build-agent](https://hub.docker.com/repository/docker/krylixza/azure-pipelines-windows-build-agent)
-  #           To run: `docker run -e AZP_URL=https://dev.azure.com/<Your Org> -e AZP_TOKEN=<Your PAT> -e AZP_POOL=<Your Agent Pool> krylixza/azure-pipelines-windows-build-agent:2022-buildtools-${{ needs.setbuildversion.outputs.BUILD_VERSION }} [--once]`
+  prerelease:
+    name: Create pre-release
+    runs-on: ubuntu-latest
+    needs: [ setbuildversion, vs2019enterprise, vs2022enterprise, vs2019buildTools, vs2022buildTools ]
+    if: success() && github.ref != 'refs/heads/main'
+    steps:
+      - name: Create pre-release tag
+        uses: ncipollo/release-action@v1
+        with:
+          allowUpdates: false
+          prerelease: true
+          name: ${{ needs.setbuildversion.outputs.BUILD_VERSION }}
+          tag: ${{ needs.setbuildversion.outputs.BUILD_VERSION }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          body: |
+            **Docker Hub:**: [krylixza/azure-pipelines-windows-build-agent](https://hub.docker.com/repository/docker/krylixza/azure-pipelines-windows-build-agent)
 
-  # release:
-  #   name: Create release
-  #   runs-on: ubuntu-latest
-  #   needs: [ setbuildversion, vs2019enterprise, vs2022enterprise, vs2019buildTools, vs2022buildTools ]
-  #   if: success() && github.ref == 'refs/heads/main'
-  #   steps:
-  #     - name: Create release tag
-  #       uses: ncipollo/release-action@v1
-  #       with:
-  #         allowUpdates: false
-  #         prerelease: false
-  #         name: ${{ needs.setbuildversion.outputs.BUILD_VERSION }}
-  #         tag: ${{ needs.setbuildversion.outputs.BUILD_VERSION }}
-  #         token: ${{ secrets.GITHUB_TOKEN }}
-  #         body: |
-  #           Docker Hub: [krylixza/azure-pipelines-windows-build-agent](https://hub.docker.com/repository/docker/krylixza/azure-pipelines-windows-build-agent)
-  #           To run: `docker run -e AZP_URL=https://dev.azure.com/<Your Org> -e AZP_TOKEN=<Your PAT> -e AZP_POOL=<Your Agent Pool> krylixza/azure-pipelines-windows-build-agent:2022-buildtools-${{ needs.setbuildversion.outputs.BUILD_VERSION }} [--once]`
+            | Image | Description | Compressed Size |
+            |----|----|----|
+            |  `2019-enterprise-x.x.x.x` | Visual Studio 2019 Enterprise workloads. | ~11GB |
+            |  `2022-enterprise-x.x.x.x` | Visual Studio 2022 Enterprise workloads. | ~12GB |
+            |  `2019-buildtools-x.x.x.x` | Visual Studio 2019 Build Tools workloads. | ~7GB |
+            |  `2022-buildtools-x.x.x.x` | Visual Studio 2022 Build Tools workloads. | ~8GB |
+
+            To run: `docker run -e AZP_URL=https://dev.azure.com/<Your Org> -e AZP_TOKEN=<Your PAT> -e AZP_POOL=<Your Agent Pool> krylixza/azure-pipelines-windows-build-agent:<Your-WorkFlow>-${{ needs.setbuildversion.outputs.BUILD_VERSION }} [--once]`
+
+  release:
+    name: Create release
+    runs-on: ubuntu-latest
+    needs: [ setbuildversion, vs2019enterprise, vs2022enterprise, vs2019buildTools, vs2022buildTools ]
+    if: success() && github.ref == 'refs/heads/main'
+    steps:
+      - name: Create release tag
+        uses: ncipollo/release-action@v1
+        with:
+          allowUpdates: false
+          prerelease: false
+          name: ${{ needs.setbuildversion.outputs.BUILD_VERSION }}
+          tag: ${{ needs.setbuildversion.outputs.BUILD_VERSION }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          body: |
+            **Docker Hub:**: [krylixza/azure-pipelines-windows-build-agent](https://hub.docker.com/repository/docker/krylixza/azure-pipelines-windows-build-agent)
+
+            | Image | Description | Compressed Size |
+            |----|----|----|
+            |  `2019-enterprise-x.x.x.x` | Visual Studio 2019 Enterprise workloads. | ~11GB |
+            |  `2022-enterprise-x.x.x.x` | Visual Studio 2022 Enterprise workloads. | ~12GB |
+            |  `2019-buildtools-x.x.x.x` | Visual Studio 2019 Build Tools workloads. | ~7GB |
+            |  `2022-buildtools-x.x.x.x` | Visual Studio 2022 Build Tools workloads. | ~8GB |
+
+            To run: `docker run -e AZP_URL=https://dev.azure.com/<Your Org> -e AZP_TOKEN=<Your PAT> -e AZP_POOL=<Your Agent Pool> krylixza/azure-pipelines-windows-build-agent:<Your-WorkFlow>-${{ needs.setbuildversion.outputs.BUILD_VERSION }} [--once]`
