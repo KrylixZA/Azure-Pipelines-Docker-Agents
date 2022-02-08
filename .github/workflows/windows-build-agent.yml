@@ -144,7 +144,7 @@ jobs:
           tag: ${{ needs.setbuildversion.outputs.BUILD_VERSION }}
           token: ${{ secrets.GITHUB_TOKEN }}
           body: |
-            **Docker Hub:**: [krylixza/azure-pipelines-windows-build-agent](https://hub.docker.com/repository/docker/krylixza/azure-pipelines-windows-build-agent)
+            **Docker Hub:** [krylixza/azure-pipelines-windows-build-agent](https://hub.docker.com/repository/docker/krylixza/azure-pipelines-windows-build-agent)
 
             | Image | Description | Compressed Size |
             |----|----|----|
@@ -170,7 +170,7 @@ jobs:
           tag: ${{ needs.setbuildversion.outputs.BUILD_VERSION }}
           token: ${{ secrets.GITHUB_TOKEN }}
           body: |
-            **Docker Hub:**: [krylixza/azure-pipelines-windows-build-agent](https://hub.docker.com/repository/docker/krylixza/azure-pipelines-windows-build-agent)
+            **Docker Hub:** [krylixza/azure-pipelines-windows-build-agent](https://hub.docker.com/repository/docker/krylixza/azure-pipelines-windows-build-agent)
 
             | Image | Description | Compressed Size |
             |----|----|----|

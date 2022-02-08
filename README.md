@@ -3,7 +3,7 @@ A collection of Dockerfiles that produce a variety of implementations of the Azu
 
 ## Windows agents [![Windows Build Agent](https://github.com/KrylixZA/Azure-Pipelines-Docker-Agents/actions/workflows/windows-build-agent.yml/badge.svg)](https://github.com/KrylixZA/Azure-Pipelines-Docker-Agents/actions/workflows/windows-build-agent.yml)
 
-**Docker Hub:**: [krylixza/azure-pipelines-windows-build-agent](https://hub.docker.com/repository/docker/krylixza/azure-pipelines-windows-build-agent)
+**Docker Hub:** [krylixza/azure-pipelines-windows-build-agent](https://hub.docker.com/repository/docker/krylixza/azure-pipelines-windows-build-agent)
 
 | Image | Description | Compressed Size |
 |----|----|----|
