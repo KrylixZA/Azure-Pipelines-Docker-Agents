@@ -39,7 +39,7 @@ jobs:
 
   vs2019enterprise:
     name: vs2019 Enterprise
-    runs-on: windows-latest
+    runs-on: windows-2019
     needs: setbuildversion
     if: success()
     steps:
@@ -62,7 +62,7 @@ jobs:
 
   vs2022enterprise:
     name: vs2022 Enterprise
-    runs-on: windows-latest
+    runs-on: windows-2019
     needs: setbuildversion
     if: success()
     steps:
@@ -85,7 +85,7 @@ jobs:
 
   vs2019buildTools:
     name: vs2019 Build Tools
-    runs-on: windows-latest
+    runs-on: windows-2019
     needs: setbuildversion
     if: success()
     steps:
@@ -108,7 +108,7 @@ jobs:
 
   vs2022buildTools:
     name: vs2022 Build Tools
-    runs-on: windows-latest
+    runs-on: windows-2019
     needs: setbuildversion
     if: success()
     steps:
